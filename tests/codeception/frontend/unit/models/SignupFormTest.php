@@ -15,7 +15,7 @@ class SignupFormTest extends DbTestCase
     public function testCorrectSignup()
     {
         $model = new SignupForm([
-            'username' => 'some_username',
+            'phone' => 'some_username',
             'email' => 'some_email@example.com',
             'password' => 'some_password',
         ]);
@@ -24,7 +24,7 @@ class SignupFormTest extends DbTestCase
 
         $this->assertInstanceOf('common\models\User', $user, 'user should be valid');
 
-        expect('username should be correct', $user->username)->equals('some_username');
+        expect('phone should be correct', $user->username)->equals('some_username');
         expect('email should be correct', $user->email)->equals('some_email@example.com');
         expect('password should be correct', $user->validatePassword('some_password'))->true();
     }
@@ -32,12 +32,12 @@ class SignupFormTest extends DbTestCase
     public function testNotCorrectSignup()
     {
         $model = new SignupForm([
-            'username' => 'troy.becker',
+            'phone' => 'troy.becker',
             'email' => 'nicolas.dianna@hotmail.com',
             'password' => 'some_password',
         ]);
 
-        expect('username and email are in use, user should not be created', $model->signup())->null();
+        expect('phone and email are in use, user should not be created', $model->signup())->null();
     }
 
     public function fixtures()

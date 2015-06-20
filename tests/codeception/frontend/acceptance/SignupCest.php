@@ -24,7 +24,7 @@ class SignupCest
     {
         User::deleteAll([
             'email' => 'tester.email@example.com',
-            'username' => 'tester',
+            'phone' => 'tester',
         ]);
     }
 
@@ -59,7 +59,7 @@ class SignupCest
 
         $I->amGoingTo('submit signup form with not correct email');
         $signupPage->submit([
-            'username' => 'tester',
+            'phone' => 'tester',
             'email' => 'tester.email',
             'password' => 'tester_password',
         ]);
@@ -71,7 +71,7 @@ class SignupCest
 
         $I->amGoingTo('submit signup form with correct email');
         $signupPage->submit([
-            'username' => 'tester',
+            'phone' => 'tester',
             'email' => 'tester.email@example.com',
             'password' => 'tester_password',
         ]);

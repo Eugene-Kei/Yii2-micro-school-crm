@@ -1,0 +1,94 @@
+<?php
+
+use eugenekei\news\Module;
+use yii\grid\CheckboxColumn;
+use yii\grid\GridView;
+use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $searchModel eugenekei\news\models\NewsSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = Module::t('module', 'News');
+$this->params['subtitle'] = Module::t('module', 'List News');
+$this->params['breadcrumbs'][] = [
+    'label' => $this->title,
+    'url' => ['index']
+];
+$this->params['breadcrumbs'][] = $this->params['subtitle'];
+
+$gridId = 'news-grid';
+
+$this->registerJs(
+                "jQuery(document).on('click', '#batch-delete', function (evt) {" .
+                    "evt.preventDefault();" .
+                    "var keys = jQuery('#" . $gridId . "').yiiGridView('getSelectedRows');" .
+                    "if (keys == '') {" .
+                        "alert('" . Module::t('module', 'You need to select at least one item.') . "');" .
+                    "} else {" .
+                        "if (confirm('" . Module::t('module', 'Are you sure you want to delete selected items?') . "')) {" .
+                            "jQuery.ajax({" .
+                                "type: 'POST'," .
+                                "url: jQuery(this).attr('href')," .
+                                "data: {ids: keys}" .
+                            "});" .
+                        "}" .
+                    "}" .
+                "});"
+            );
+
+?>
+<div class="<?= $gridId ?>">
+    <div class="box box-default">
+        <div class="box-header">
+            <div class="pull-right">
+                <?= Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
+                    [
+                        'class' => 'btn btn-primary btn-sm',
+                        'title' => Module::t('module', 'Create')
+                    ]); ?>
+                <?= Html::a('<i class="glyphicon glyphicon-trash"></i>', ['batch-delete'],
+                    [
+                        'class' => 'btn btn-danger btn-sm',
+                        'id' => 'batch-delete',
+                        'title' => Module::t('module', 'Delete selected')
+                    ]); ?>
+            </div>
+        </div>
+        <div class="box-body">
+
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'id' => $gridId,
+                'options' => ['class' => 'table-responsive'],
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => CheckboxColumn::classname()],
+                    'title',
+                    [
+                        'attribute' => 'status',
+                        'value' => function($model){return $model->getStatusArray()[$model->status];}
+                    ],
+                     'created_at:datetime',
+                    [
+                        'attribute' => 'user_id',
+                        'value' => function($model){
+                            $authorModel = Yii::$app->controller->module->authorModel;
+                            $authorNameField = Yii::$app->controller->module->authorNameField;
+                            return $model->$authorModel->$authorNameField;
+                        }
+                    ],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'buttonOptions' => ['class' => 'btn btn-default btn-xs'],
+                        'headerOptions' => ['style' => 'width:95px;'],
+                        'header' => Module::t('module', 'Actions')
+                    ],
+                ],
+            ]); ?>
+
+        </div>
+    </div>
+</div>

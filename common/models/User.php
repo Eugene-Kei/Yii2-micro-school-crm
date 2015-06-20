@@ -11,7 +11,7 @@ use yii\web\IdentityInterface;
  * User model
  *
  * @property integer $id
- * @property string $username
+ * @property string $phone
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
@@ -24,6 +24,7 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
+    const STATUS_NEW = 1;
     const STATUS_ACTIVE = 10;
 
     /**
@@ -32,6 +33,18 @@ class User extends ActiveRecord implements IdentityInterface
     public static function tableName()
     {
         return '{{%user}}';
+    }
+
+    /**
+     * @return array
+     */
+    public static function getStatusArray()
+    {
+        return [
+            self::STATUS_DELETED => 'DELETED',
+            self::STATUS_NEW => 'NEW',
+            self::STATUS_ACTIVE => 'ACTIVE'
+        ];
     }
 
     /**
@@ -50,17 +63,21 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'default', 'value' => self::STATUS_NEW],
+            ['status', 'in', 'range' => array_keys(self::getStatusArray())],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public static function findIdentity($id)
+    public static function findIdentity($id, $active = false)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        $condition = ['id' => $id];
+        if ($active) {
+            $condition['status'] = self::STATUS_ACTIVE;
+        }
+        return static::findOne($condition);
     }
 
     /**
@@ -72,14 +89,18 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
+     * Finds user by phone
      *
-     * @param string $username
+     * @param string $phone
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByPhone($phone, $active = false)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        $condition = ['phone' => $phone];
+        if ($active) {
+            $condition['status'] = self::STATUS_ACTIVE;
+        }
+        return static::findOne($condition);
     }
 
     /**
@@ -96,7 +117,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
+            'status' => [self::STATUS_ACTIVE, self::STATUS_NEW],
         ]);
     }
 
@@ -113,7 +134,8 @@ class User extends ActiveRecord implements IdentityInterface
         }
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         $parts = explode('_', $token);
-        $timestamp = (int) end($parts);
+        $timestamp = (int)end($parts);
+
         return $timestamp + $expire >= time();
     }
 
@@ -184,5 +206,24 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Changes the status of the user at the first authorization
+     */
+    public function changeUserStatusNewToActive()
+    {
+        if($this->status == self::STATUS_NEW){
+            $this->status = self::STATUS_ACTIVE;
+            $this->save();
+        }
+    }
+
+    /**
+     * @return Profile|null User profile
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'id'])->inverseOf('user');
     }
 }

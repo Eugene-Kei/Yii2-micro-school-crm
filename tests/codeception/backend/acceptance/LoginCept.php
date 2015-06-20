@@ -26,7 +26,7 @@ if (method_exists($I, 'wait')) {
     $I->wait(3); // only for selenium
 }
 $I->expectTo('see validations errors');
-$I->see('Incorrect username or password.', '.help-block');
+$I->see('Incorrect phone or password.', '.help-block');
 
 $I->amGoingTo('try to login with correct credentials');
 $loginPage->login('erau', 'password_0');

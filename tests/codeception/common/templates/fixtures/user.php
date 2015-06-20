@@ -7,7 +7,7 @@
 $security = Yii::$app->getSecurity();
 
 return [
-    'username' => $faker->userName,
+    'phone' => $faker->userName,
     'email' => $faker->email,
     'auth_key' => $security->generateRandomString(),
     'password_hash' => $security->generatePasswordHash('password_' . $index),

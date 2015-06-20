@@ -18,7 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
                 <?= $form->field($model, 'email') ?>
-                <div class="form-group">
+                <?= $form->field($model, 'verificationCode')->widget(\yii\captcha\Captcha::classname(), [
+                    'template' => '{image}{input}',
+                ]);?>
+                <div class="form-group form-group">
                     <?= Html::submitButton('Send', ['class' => 'btn btn-primary']) ?>
                 </div>
             <?php ActiveForm::end(); ?>

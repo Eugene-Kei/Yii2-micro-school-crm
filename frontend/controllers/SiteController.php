@@ -12,6 +12,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\Cookie;
 
 /**
  * Site controller
@@ -150,10 +151,9 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
+            if ($model->signup()) {
+                \Yii::$app->session->setFlash('success', 'Your password has been sent to: ' . $model->email);
+                return $this->goHome();
             }
         }
 
@@ -209,5 +209,24 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    /**
+     *
+     */
+    public  function beforeAction($action)
+    {
+        if(parent::beforeAction($action)){
+            $refId = (int)Yii::$app->request->get('ref');
+            if($refId > 0){
+                Yii::$app->response->cookies->add(new Cookie([
+                    'name' => 'affiliate',
+                    'value' => $refId,
+                    'expire' => 60*60*24*365,
+                ]));
+            }
+            return true;
+        }
+        return false;
     }
 }

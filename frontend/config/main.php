@@ -11,10 +11,29 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'news' => [
+            'class' => 'eugenekei\news\Module',
+        ]
+    ],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'on afterLogin'   => function(\yii\web\UserEvent $event) {
+                /** @var common\models\User $user */
+                $user = $event->identity;
+                $user->changeUserStatusNewToActive();
+            }
+        ],
+        'urlManager' => [
+            'rules' => [
+                '' => 'site/index',
+                '<_a:(about|contact|captcha|login|signup)>' => 'site/<_a>',
+                '<_m>/<_c>/<_a>' => '<_m>/<_c>/<_a>',
+                '<_m>/<_c>' => '<_m>/<_c>',
+                '<_m>' => '<_m>',
+            ]
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
