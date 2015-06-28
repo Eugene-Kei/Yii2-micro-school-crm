@@ -27,6 +27,7 @@ class m140506_102106_rbac_init extends \yii\db\Migration
         if (!$authManager instanceof DbManager) {
             throw new InvalidConfigException('You should configure "authManager" component to use database before executing this migration.');
         }
+
         return $authManager;
     }
 
@@ -77,6 +78,46 @@ class m140506_102106_rbac_init extends \yii\db\Migration
             'PRIMARY KEY (item_name, user_id)',
             'FOREIGN KEY (item_name) REFERENCES ' . $authManager->itemTable . ' (name) ON DELETE CASCADE ON UPDATE CASCADE',
         ], $tableOptions);
+
+        //foreign_key_checks off
+        $this->execute('SET foreign_key_checks=0');
+
+        //insert assignments
+        $this->insert($authManager->assignmentTable,
+            ['item_name' => 'superadmin', 'user_id' => '1', 'created_at' => time()]);
+
+        //insert child items
+        $this->batchInsert($authManager->itemChildTable, ['parent', 'child'], [
+            ['superadmin', '/*',],
+            ['director', '/config/*',],
+            ['superadmin', '/gii/*',],
+            ['admin', '/news/admin/*',],
+            ['superadmin', '/rbac/*',],
+            ['admin', '/user/*',],
+            ['admin', '/group/*',],
+            ['director', 'admin',],
+            ['superadmin', 'director',],
+            ['admin', 'user']
+        ]);
+
+        //insert items
+        $this->batchInsert($authManager->itemTable,['name','type','description','rule_name', 'data','created_at','updated_at'],[
+            ['/*', 2, NULL, NULL, NULL,time(),time()],
+            ['/config/*', 2, NULL,NULL,NULL,time(),time()],
+            ['/gii/*', 2, NULL,NULL,NULL,time(),time()],
+            ['/news/admin/*', 2, NULL,NULL,NULL,time(),time()],
+            ['/rbac/*', 2, NULL,NULL,NULL,time(),time()],
+            ['/site/*', 2, NULL,NULL,NULL,time(),time()],
+            ['/user/*', 2, NULL,NULL,NULL,time(),time()],
+            ['/group/*', 2, NULL,NULL,NULL,time(),time()],
+            ['admin', 1, 'admin',NULL,NULL,time(),time()],
+            ['director', 1, 'director',NULL,NULL,time(),time()],
+            ['superadmin', 1, 'superadmin',NULL,NULL,time(),time()],
+            ['user', 1, 'user',NULL,NULL,time(),time()],
+        ]);
+
+        //foreign_key_checks on
+        $this->execute('SET foreign_key_checks=1');
     }
 
     public function down()
