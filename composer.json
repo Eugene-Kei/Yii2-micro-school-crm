@@ -32,6 +32,7 @@
     "kartik-v/yii2-widget-datepicker": "*",
     "kartik-v/yii2-widget-select2": "*",
     "kartik-v/yii2-widget-switchinput": "*",
+    "kartik-v/yii2-widget-depdrop": "@dev",
     "vova07/yii2-fileapi-widget": "*",
     "2amigos/yii2-chartjs-widget": "~2.0",
     "nesbot/carbon": "1.*"
