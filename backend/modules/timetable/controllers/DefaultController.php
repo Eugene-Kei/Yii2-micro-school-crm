@@ -13,6 +13,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\HttpException;
@@ -99,11 +100,12 @@ class DefaultController extends Controller
             'dataProvider' => $dataProvider,
         ]);
 
-        $staticTableFullPath = Yii::getAlias('@frontend/themes/site/views/layouts'
+        $staticTableFileFullPath = Yii::getAlias(Module::getInstance()->staticTableFullPath
             . DIRECTORY_SEPARATOR .
             Timetable::$staticTableView . '.php');
 
-        if (@file_put_contents($staticTableFullPath, $timeTableContent)) {
+//        FileHelper::
+        if (@file_put_contents($staticTableFileFullPath, $timeTableContent)) {
             Yii::$app->session->setFlash('success', Module::t('timetable-admin', 'Schedule published on the site.'));
         } else {
             Yii::$app->session->setFlash('danger',
