@@ -7,6 +7,7 @@ use backend\modules\user\models\UserSearch;
 use common\models\Profile;
 use vova07\fileapi\actions\UploadAction as FileAPIUpload;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
@@ -49,6 +50,21 @@ class DefaultController extends Controller
                 'path' => Profile::AVATAR_UPLOAD_TEMP_PATH,
             ]
         ];
+    }
+
+    /**
+     * Debtors list page.
+     */
+    function actionDebtor() {
+        $query = Profile::find()->where('balance < 0');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        return $this->render('debtor', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

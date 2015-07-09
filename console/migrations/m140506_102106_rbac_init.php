@@ -99,6 +99,7 @@ class m140506_102106_rbac_init extends \yii\db\Migration
             ['admin', '/employment/*'],
             ['admin', '/pay/*'],
             ['admin', '/group/*'],
+            ['admin', '/timetable/*'],
             ['director', 'admin'],
             ['superadmin', 'director'],
             ['admin', 'user']
@@ -117,6 +118,7 @@ class m140506_102106_rbac_init extends \yii\db\Migration
             ['/user/*', 2, NULL,NULL,NULL,time(),time()],
             ['/statistics/*', 2, NULL,NULL,NULL,time(),time()],
             ['/employment/*', 2, NULL,NULL,NULL,time(),time()],
+            ['/timetable/*', 2, NULL,NULL,NULL,time(),time()],
             ['/group/*', 2, NULL,NULL,NULL,time(),time()],
             ['admin', 1, 'admin',NULL,NULL,time(),time()],
             ['director', 1, 'director',NULL,NULL,time(),time()],

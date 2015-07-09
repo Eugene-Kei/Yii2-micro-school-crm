@@ -16,22 +16,30 @@ $this->params['breadcrumbs'][] = [
 ];
 $this->params['breadcrumbs'][] = $this->params['subtitle'];
 ?>
-<div class="user-create">
+<div class="user-update">
     <div class="box box-success">
         <div class="box-header">
             <div class="pull-right">
                 <?= Html::a('<i class="fa fa-list"></i>', ['index'],
                                     [
                                         'class' => 'btn btn-default btn-sm',
-                                        'title' => Module::t('user-admin', 'List')                                    ]); ?>
+                                        'title' => Module::t('user-admin', 'List')
+                                    ]); ?>
+                <?= Html::a('<i class="fa fa-money text-danger"></i>', ['debtor'],
+                                    [
+                                        'class' => 'btn btn-default btn-sm',
+                                        'title' => Module::t('user-admin', 'List debtors')
+                                    ]); ?>
                 <?= Html::a('<i class="fa fa-eye"></i>', ['view', 'id' => $user->id],
                                     [
                                         'class' => 'btn btn-default btn-sm',
-                                        'title' => Module::t('user-admin', 'View')                                    ]); ?>
+                                        'title' => Module::t('user-admin', 'View')
+                                    ]); ?>
                 <?= Html::a('<i class="fa fa-plus"></i>', ['create'],
                                     [
                                         'class' => 'btn btn-primary btn-sm',
-                                        'title' => Module::t('user-admin', 'Create')                                    ]); ?>
+                                        'title' => Module::t('user-admin', 'Create')
+                                    ]); ?>
                 <?= Html::a('<i class="fa fa-trash"></i>', ['delete', 'id' => $user->id],
                                     [
                                         'class' => 'btn btn-danger btn-sm',

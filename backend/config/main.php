@@ -26,10 +26,31 @@ return [
         'config' => [
             'class' => 'backend\modules\config\Config',
         ],
+        'user' => [
+            'class' => 'backend\modules\user\Module',
+        ],
+        'group' => [
+            'class' => 'backend\modules\group\Module',
+        ],
+        'timetable' => [
+            'class' => 'backend\modules\timetable\Module',
+        ],
+        'ticket' => [
+            'class' => 'backend\modules\ticket\Ticket',
+        ],
+        'pay' => [
+            'class' => 'backend\modules\pay\Pay',
+        ],
+        'employment' => [
+            'class' => 'backend\modules\employment\Employment',
+        ],
         'news' => [
             'class' => 'eugenekei\news\Module',
             'controllerNamespace' => 'eugenekei\news\controllers\backend',
             'viewPath' => '@app/themes/adminlte/yii2-simple-news'
+        ],
+        'statistics' => [
+            'class' => 'backend\modules\statistics\Statistics',
         ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module'

@@ -44,6 +44,11 @@ $this->registerJs(
     <div class="box box-default">
         <div class="box-header">
             <div class="pull-right">
+                <?= Html::a('<i class="fa fa-money text-danger"></i>', ['debtor'],
+                    [
+                        'class' => 'btn btn-default btn-sm',
+                        'title' => Module::t('user-admin', 'List debtors')
+                    ]); ?>
                 <?= Html::a('<i class="fa fa-plus"></i>', ['create'],
                     [
                         'class' => 'btn btn-primary btn-sm',
@@ -66,6 +71,14 @@ $this->registerJs(
                 'id' => $gridId,
                 'options' => ['class' => 'table-responsive'],
                 'filterModel' => $searchModel,
+                'rowOptions' => function ($model) {
+                    $array = [];
+                    if ($model->profile->balance < 0) {
+                        $array['class'] = 'danger';
+
+                        return $array;
+                    }
+                },
                 'columns' => [
                     ['class' => CheckboxColumn::classname()],
                     [
@@ -114,8 +127,35 @@ $this->registerJs(
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'buttonOptions' => ['class' => 'btn btn-default btn-xs'],
-                        'headerOptions' => ['style' => 'width:95px;'],
-                        'header' => Module::t('user-admin', 'Actions')
+                        'headerOptions' => ['style' => 'width:155px;'],
+                        'header' => Module::t('user-admin', 'Actions'),
+                        'template' => '{pay} {history} {view} {update} {delete}',
+                        'buttons'  => [
+                            'pay' => function ($url, $model) {
+                                $customurl = Yii::$app->getUrlManager()->createUrl(['/pay/default/create/', 'user_id' => $model->id]);
+                                return \yii\helpers\Html::a(
+                                    '<span class="fa fa-money"></span>', $customurl, [
+                                        'title'     => Module::t('user-admin', 'Pay'),
+                                        'data-pjax' => '0',
+                                        'class' => 'btn btn-default btn-xs'
+                                    ]
+                                );
+                            },
+                            'history' => function ($url, $model) {
+                                $customurl = Yii::$app->getUrlManager()->createUrl([
+                                    '/pay/default/index/',
+                                    'PaySearch' => ['user_id' => $model->id]
+                                ]);
+
+                                return \yii\helpers\Html::a(
+                                    '<span class="fa fa-history"></span>', $customurl, [
+                                        'title' => Module::t('user-admin', 'Payment history'),
+                                        'data-pjax' => '0',
+                                        'class' => 'btn btn-default btn-xs'
+                                    ]
+                                );
+                            },
+                        ],
                     ],
                 ],
             ]); ?>

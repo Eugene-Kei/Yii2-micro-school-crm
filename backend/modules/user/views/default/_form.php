@@ -70,7 +70,7 @@ use yii\web\JsExpression;
                     <?= $form->field($profile, 'user_affiliate_id')->widget(Select2::className(), [
                         'id' => 'user_affiliate_id',
                         'options' => [
-                            'placeholder' => empty($profile->fullName) ? 'Начните вводить имя или фамилию' : '',
+                            'placeholder' => empty($profile->fullName) ? Yii::t('app', 'Start typing the name or surname') : '',
                             'class' => 'form-control',
                         ],
                         'language' => 'ru',

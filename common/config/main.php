@@ -9,7 +9,7 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
-            'cache' => 'cache',
+//            'cache' => 'cache',
             'defaultRoles' => [
                 'user'
             ],
@@ -20,5 +20,13 @@ return [
             'showScriptName' => false,
             'suffix' => '/'
         ],
+        'formatter' => [
+            'dateFormat' => 'php:d.m.Y',
+            'datetimeFormat' => 'php:d.m.Y H:i',
+            'timeFormat' => 'php:H:i'
+        ],
+        'config' => [
+            'class' => 'common\components\DConfig',
+        ]
     ],
 ];

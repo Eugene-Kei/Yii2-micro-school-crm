@@ -1,52 +1,110 @@
 <?php
+
+
+use backend\modules\statistics\Statistics;
+use backend\modules\timetable\Module as Timetable;
+use backend\modules\employment\Employment;
+use backend\modules\pay\Pay;
+use backend\modules\user\Module as User;
+use yii\helpers\Url;
+use Yii;
+
+
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = Yii::t('app', 'Admin panel');
 ?>
-<div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+<div class="row center-block text-center center">
+    <?php
+    if(Yii::$app->user->can('/user/*')):
+        ?>
+        <div class="col-lg-3 col-sm-4 col-xs-6">
+            <a class="btn btn-default btn-square-200px"
+               href="<?php echo Url::toRoute('/user/default/index'); ?>">
+                <i class="fa fa-user fa-10x text-info">
+                </i>
+                <br/>
+                <h4><?= User::t('user-admin', 'Users') ?></h4>
+            </a>
         </div>
-
-    </div>
+    <?php
+    endif;
+    if(Yii::$app->user->can('/pay/*')):
+        ?>
+        <div class="col-lg-3 col-sm-4 col-xs-6">
+            <a class="btn btn-default btn-square-200px"
+               href="<?php echo Url::toRoute('/pay/default/index'); ?>">
+                <i class="fa fa-money fa-10x text-info">
+                </i>
+                <br/>
+                <h4><?= Pay::t('pay-admin', 'Pays') ?></h4>
+            </a>
+        </div>
+    <?php
+    endif;
+    if(Yii::$app->user->can('/employment/*')):
+        ?>
+        <div class="col-lg-3 col-sm-4 col-xs-6">
+            <a class="btn btn-default btn-square-200px"
+               href="<?php echo Url::toRoute('/employment/default/index'); ?>">
+                <i class="fa fa-clock-o fa-10x text-info">
+                </i>
+                <br/>
+                <h4><?= Employment::t('employment', 'Paid employments') ?></h4>
+            </a>
+        </div>
+    <?php
+    endif;
+    if(Yii::$app->user->can('/user/*')):
+        ?>
+        <div class="col-lg-3 col-sm-4 col-xs-6">
+            <a class="btn btn-default btn-square-200px"
+               href="<?php echo Url::toRoute('/user/default/debtor'); ?>">
+                <i class="fa fa-money fa-10x text-danger">
+                </i>
+                <br/>
+                <h4><?= User::t('user-admin', 'List debtors') ?></h4>
+            </a>
+        </div>
+    <?php
+    endif;
+    if(Yii::$app->user->can('/timetable/*')):
+        ?>
+        <div class="col-lg-3 col-sm-4 col-xs-6">
+            <a class="btn btn-default btn-square-200px"
+               href="<?php echo Url::toRoute('/timetable/default/view'); ?>">
+                <i class="fa fa-calendar fa-10x text-info">
+                </i>
+                <br/>
+                <h4><?= Timetable::t('timetable-admin', 'Timetable') ?></h4>
+            </a>
+        </div>
+    <?php
+    endif;
+    if(Yii::$app->user->can('/timetable/*')):
+        ?>
+        <div class="col-lg-3 col-sm-4 col-xs-6">
+            <a class="btn btn-default btn-square-200px"
+               href="<?php echo Url::toRoute('/timetable/default/cancel-lessons'); ?>">
+                <i class="fa fa-close fa-10x text-danger">
+                </i>
+                <br/>
+                <h4><?= Timetable::t('timetable-admin', 'Cancel lessons') ?></h4>
+            </a>
+        </div>
+    <?php
+    endif;
+    if(Yii::$app->user->can('/statistics/*')):
+        ?>
+        <div class="col-lg-3 col-sm-4 col-xs-6 center-block">
+            <a class="btn btn-default btn-square-200px"
+               href="<?php echo Url::toRoute('/statistics/default/index'); ?>">
+                <i class="fa fa-bar-chart fa-10x text-info">
+                </i>
+                <br/>
+                <h4><?= Statistics::t('statistics', 'Statistics') ?></h4>
+            </a>
+        </div>
+    <?php endif;?>
 </div>

@@ -24,6 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'btn btn-default btn-sm',
                         'title' => Module::t('user-admin', 'List')
                     ]); ?>
+                <?= Html::a('<i class="fa fa-money text-danger"></i>', ['debtor'],
+                    [
+                        'class' => 'btn btn-default btn-sm',
+                        'title' => Module::t('user-admin', 'List debtors')
+                    ]); ?>
                 <?= Html::a('<i class="fa fa-pencil"></i>', ['update', 'id' => $model->id],
                     [
                         'class' => 'btn btn-success btn-sm',
