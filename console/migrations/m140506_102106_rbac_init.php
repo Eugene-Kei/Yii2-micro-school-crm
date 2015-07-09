@@ -88,18 +88,19 @@ class m140506_102106_rbac_init extends \yii\db\Migration
 
         //insert child items
         $this->batchInsert($authManager->itemChildTable, ['parent', 'child'], [
-            ['superadmin', '/*',],
-            ['director', '/config/*',],
-            ['director', '/ticket/*',],
-            ['superadmin', '/gii/*',],
-            ['admin', '/news/admin/*',],
-            ['superadmin', '/rbac/*',],
-            ['admin', '/user/*',],
-            ['admin', '/employment/*',],
-            ['admin', '/pay/*',],
-            ['admin', '/group/*',],
-            ['director', 'admin',],
-            ['superadmin', 'director',],
+            ['superadmin', '/*'],
+            ['director', '/statistics/*'],
+            ['director', '/config/*'],
+            ['director', '/ticket/*'],
+            ['superadmin', '/gii/*'],
+            ['admin', '/news/admin/*'],
+            ['superadmin', '/rbac/*'],
+            ['admin', '/user/*'],
+            ['admin', '/employment/*'],
+            ['admin', '/pay/*'],
+            ['admin', '/group/*'],
+            ['director', 'admin'],
+            ['superadmin', 'director'],
             ['admin', 'user']
         ]);
 
@@ -114,6 +115,7 @@ class m140506_102106_rbac_init extends \yii\db\Migration
             ['/rbac/*', 2, NULL,NULL,NULL,time(),time()],
             ['/site/*', 2, NULL,NULL,NULL,time(),time()],
             ['/user/*', 2, NULL,NULL,NULL,time(),time()],
+            ['/statistics/*', 2, NULL,NULL,NULL,time(),time()],
             ['/employment/*', 2, NULL,NULL,NULL,time(),time()],
             ['/group/*', 2, NULL,NULL,NULL,time(),time()],
             ['admin', 1, 'admin',NULL,NULL,time(),time()],

@@ -3,6 +3,13 @@
 use frontend\widgets\AdminLteSideNav as Nav;
 use eugenekei\news\Module as News;
 use backend\modules\config\Config;
+use backend\modules\user\Module as User;
+use backend\modules\group\Module as Group;
+use backend\modules\timetable\Module as Timetable;
+use backend\modules\employment\Employment;
+use backend\modules\pay\Pay;
+use backend\modules\ticket\Ticket;
+use backend\modules\statistics\Statistics;
 
 if (!isset(Yii::$app->i18n->translations['rbac-admin'])) {
     Yii::$app->i18n->translations['rbac-admin'] = [
@@ -11,7 +18,6 @@ if (!isset(Yii::$app->i18n->translations['rbac-admin'])) {
         'basePath' => '@mdm/admin/messages'
     ];
 }
-
 
 $controllerPath = '';
 $moduleId = '';
@@ -36,16 +42,59 @@ $controllerPath .= '/'.Yii::$app->controller->id;
                 'activateParents' => true,
                 'items' => [
                     [
-                        'label' => Config::t('module', 'Configuration'),
+                        'label' => Config::t('configuration', 'Configuration'),
                         'url' => ['/config/default/index'],
-                        'visible' => Yii::$app->user->can('/news/admin/*'),
+                        'visible' => Yii::$app->user->can('/config/*'),
                         'icon' => Config::getIcon(),
                     ],
                     [
-                        'label' => News::t('module', 'News'),
+                        'label' => User::t('user-admin', 'Users'),
+                        'url' => ['/user/default/index'],
+                        'visible' => Yii::$app->user->can('/user/*'),
+                        'icon' => User::getIcon(),
+                    ],
+                    [
+                        'label' => Group::t('group-admin', 'Groups'),
+                        'url' => ['/group/default/index'],
+                        'visible' => Yii::$app->user->can('/group/*'),
+                        'icon' => Group::getIcon(),
+                    ],
+                    [
+                        'label' => Timetable::t('timetable-admin', 'Timetable'),
+                        'url' => ['/timetable/default/index'],
+                        'visible' => Yii::$app->user->can('/timetable/*'),
+                        'icon' => Timetable::getIcon(),
+                    ],
+                    [
+                        'label' => Ticket::t('ticket', 'Tickets'),
+                        'url' => ['/ticket/default/index'],
+                        'visible' => Yii::$app->user->can('/ticket/*'),
+                        'icon' => Ticket::getIcon(),
+                    ],
+                    [
+                        'label' => Pay::t('pay-admin', 'Pays'),
+                        'url' => ['/pay/default/index'],
+                        'visible' => Yii::$app->user->can('/pay/*'),
+                        'icon' => Pay::getIcon(),
+                    ],
+                    [
+                        'label' => Employment::t('employment', 'Paid employments'),
+                        'url' => ['/employment/default/index'],
+                        'visible' => Yii::$app->user->can('/employment/*'),
+                        'icon' => Employment::getIcon(),
+                    ],
+                    [
+                        'label' => News::t('eugenekei-news', 'News'),
                         'url' => ['/news/admin/index'],
                         'visible' => Yii::$app->user->can('/news/admin/*'),
                         'icon' => News::getIcon(),
+                        'active' => $moduleId === 'news',
+                    ],
+                    [
+                        'label' => Statistics::t('statistics', 'Statistics'),
+                        'url' => ['/statistics/default/index'],
+                        'visible' => Yii::$app->user->can('/statistics/*'),
+                        'icon' => Statistics::getIcon(),
                         'active' => $moduleId === 'news',
                     ],
                     [
@@ -86,12 +135,7 @@ $controllerPath .= '/'.Yii::$app->controller->id;
                                 'label' => Yii::t('rbac-admin', 'Rules'),
                                 'url' => ['/rbac/rule/index'],
                                 'active' => $controllerPath === '/rbac/rule'
-                            ],
-                            [
-                                'label' => Yii::t('rbac-admin', 'Menus'),
-                                'url' => ['/rbac/menu/index'],
-                                'active' => $controllerPath === '/rbac/menu'
-                            ],
+                            ]
                         ]
                     ],
                 ],
@@ -104,3 +148,5 @@ $controllerPath .= '/'.Yii::$app->controller->id;
     </section>
 
 </aside>
+
+<?php //print_r(Yii::$app->i18n->translations);?>

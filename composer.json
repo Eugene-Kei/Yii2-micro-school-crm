@@ -23,11 +23,18 @@
     "yiisoft/yii2": ">=2.0.4",
     "yiisoft/yii2-bootstrap": "*",
     "yiisoft/yii2-swiftmailer": "*",
-    "mdmsoft/yii2-admin": "~1.0",
+    "mdmsoft/yii2-admin": "1.*",
     "dmstr/yii2-adminlte-asset": "2.*",
     "eugene-kei/yii2-simple-news": "*",
     "kartik-v/yii2-grid": "*",
-    "kartik-v/yii2-editable": "*"
+    "kartik-v/yii2-editable": "*",
+    "kartik-v/yii2-date-range": "*",
+    "kartik-v/yii2-widget-datepicker": "*",
+    "kartik-v/yii2-widget-select2": "*",
+    "kartik-v/yii2-widget-switchinput": "*",
+    "vova07/yii2-fileapi-widget": "*",
+    "2amigos/yii2-chartjs-widget": "~2.0",
+    "nesbot/carbon": "1.*"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
