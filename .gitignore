@@ -30,3 +30,5 @@ phpunit.phar
 /phpunit.xml
 
 /composer.lock
+
+/frontend/views/layouts/_staticTable.php
