@@ -8,6 +8,11 @@ class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'backend\modules\timetable\controllers';
 
+    /**
+     * @var string path to save static html timetable view
+     */
+    public $staticTableFullPath = '@frontend/views/layouts';
+
     public function init()
     {
         parent::init();
