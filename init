@@ -87,6 +87,9 @@ foreach ($callbacks as $callback) {
 //create symlink for avatars dir
 createSymlink(dirname(__FILE__), ['backend/web/images/avatars' => 'frontend/web/images/avatars']);
 
+//create symlink for news images dir
+createSymlink(dirname(__FILE__), ['backend/web/images/news' => 'frontend/web/images/news']);
+
 echo "\n  ... initialization completed.\n\n";
 
 function getFileList($root, $basePath = '')
