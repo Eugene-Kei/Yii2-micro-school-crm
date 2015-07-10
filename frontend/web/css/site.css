@@ -89,3 +89,9 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+.required label:after {
+    content: " *";
+    color: #c55;
+}
+

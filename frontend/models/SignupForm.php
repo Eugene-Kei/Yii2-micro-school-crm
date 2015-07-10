@@ -22,17 +22,15 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['phone', 'name'], 'filter', 'filter' => 'trim'],
-            ['phone', 'required'],
+            [['email', 'phone', 'name'], 'filter', 'filter' => 'trim'],
+            [['phone', 'name', 'email'], 'required'],
             [
                 'phone',
                 'unique',
                 'targetClass' => '\common\models\User',
-                'message' => 'This phone has already been taken.'
+                'message' => Yii::t('app', 'This phone has already been taken.')
             ],
-            ['phone', 'string', 'min' => 2, 'max' => 255],
-            ['email', 'filter', 'filter' => 'trim'],
-            [['email', 'name'], 'required'],
+            ['phone', 'match', 'pattern' => User::$patternPhone],
             ['name', 'string', 'max' => 50],
             ['name', 'match', 'pattern' => Profile::$patternName],
             ['email', 'email'],
@@ -41,8 +39,20 @@ class SignupForm extends Model
                 'email',
                 'unique',
                 'targetClass' => '\common\models\User',
-                'message' => 'This email address has already been taken.'
+                'message' => Yii::t('app', 'This email address has already been taken.')
             ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'phone' => Yii::t('app', 'Phone'),
+            'email' => Yii::t('app', 'Email'),
+            'name' => Yii::t('app', 'Name'),
         ];
     }
 
@@ -89,7 +99,7 @@ class SignupForm extends Model
         return \Yii::$app->mailer->compose($layouts, $params)
             ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
             ->setTo($this->email)
-            ->setSubject(\Yii::$app->name . ' :: Your Account Info')
+            ->setSubject(\Yii::$app->name . ' :: ' . Yii::t('app', 'Your Account Info'))
             ->send();
     }
 }

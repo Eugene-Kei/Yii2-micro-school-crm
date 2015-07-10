@@ -3,6 +3,7 @@ namespace frontend\models;
 
 use common\models\User;
 use yii\base\Model;
+use Yii;
 
 /**
  * Password reset request form
@@ -31,6 +32,17 @@ class PasswordResetRequestForm extends Model
                 ],
                 'message' => 'There is no user with such email.'
             ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'email' => Yii::t('app', 'Email'),
+            'verificationCode' => Yii::t('app', 'Verification Code'),
         ];
     }
 
