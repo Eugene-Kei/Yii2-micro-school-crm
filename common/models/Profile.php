@@ -36,7 +36,7 @@ class Profile extends \yii\db\ActiveRecord
     /**
      * @var string Name regular pattern
      */
-    public static $patternName = '/^([a-zа-яё])+(-[a-zа-яё]+)?+$/iu';
+    public static $patternName = '/^([a-zа-яё]+)(-[a-zа-яё]+)?$/iu';
 
     /**
      * @inheritdoc
@@ -88,15 +88,16 @@ class Profile extends \yii\db\ActiveRecord
                 'operator' => '!==',
                 'message' => Yii::t('app', 'Can not be yourself affiliate')
             ],
-            ['user_affiliate_id', 'exist', 'targetAttribute' => 'id', 'targetClass' => User::className()],
             ['gender', 'in', 'range' => array_keys(static::getGenderArray())],
             [['balance', 'bonus_balance'], 'number'],
             [['balance', 'bonus_balance'], 'default', 'value' => '0.00'],
             ['name', 'required'],
             [['surname', 'name', 'middle_name'], 'trim'],
             [['surname', 'name', 'middle_name'], 'string', 'max' => 50],
+            [['name', 'surname', 'gender'], 'required', 'on' => 'frontend-update-own'],
             [['surname', 'name', 'middle_name'], 'match', 'pattern' => self::$patternName],
-            [['avatar_url'], 'string', 'max' => 64]
+            [['avatar_url'], 'string', 'max' => 64],
+            ['user_affiliate_id', 'exist', 'targetAttribute' => 'id', 'targetClass' => User::className()]
         ];
     }
 
