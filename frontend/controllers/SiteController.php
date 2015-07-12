@@ -211,6 +211,10 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionTimetable(){
+        return $this->render('timetable');
+    }
+
     /**
      *
      */
