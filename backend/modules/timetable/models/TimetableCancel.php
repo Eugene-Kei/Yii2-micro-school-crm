@@ -2,6 +2,7 @@
 
 namespace backend\modules\timetable\models;
 
+use backend\modules\user\Module;
 use yii\base\Model;
 
 class TimetableCancel extends Model {
@@ -21,8 +22,8 @@ class TimetableCancel extends Model {
      */
     public function attributeLabels() {
         return [
-            'ids'  => 'Занятия',
-            'date' => 'Дата',
+            'ids'  => Module::t('timetable-admin', 'Classes'),
+            'date' => Module::t('timetable-admin', 'Date'),
         ];
     }
 

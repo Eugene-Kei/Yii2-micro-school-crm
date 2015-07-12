@@ -6,6 +6,7 @@ use Yii;
 use common\models\Config;
 use common\models\ConfigSearch;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
@@ -69,7 +70,7 @@ class DefaultController extends Controller {
                 $output = $arrayData[$model->value];
             }
             if (!$model->validate() || !$model->save(false)) {
-                echo Json::encode(['output' => $output, 'message' => 'Ошибка. ' . $model->errors['value'][0]]);
+                echo Json::encode(['output' => $output, 'message' => 'Error. ' . $model->errors['value'][0]]);
             } else {
                 echo Json::encode(['output' => $output, 'message' => '']);
             }

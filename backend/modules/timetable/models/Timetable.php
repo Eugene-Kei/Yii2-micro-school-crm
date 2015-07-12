@@ -2,6 +2,8 @@
 
 namespace backend\modules\timetable\models;
 
+use backend\modules\employment\models\PaidEmployment;
+use backend\modules\timetable\Module;
 use Yii;
 use Carbon\Carbon;
 use backend\modules\group\models\Group;
@@ -28,13 +30,13 @@ class Timetable extends \yii\db\ActiveRecord {
 
     public static function getWeekArray() {
         return [
-            1 => 'Понедельник',
-            2 => 'Вторник',
-            3 => 'Среда',
-            4 => 'Четверг',
-            5 => 'Пятница',
-            6 => 'Суббота',
-            0 => 'Воскресенье',
+            1 => Module::t('timetable-admin', 'Monday'),
+            2 => Module::t('timetable-admin', 'Tuesday'),
+            3 => Module::t('timetable-admin', 'Wednesday'),
+            4 => Module::t('timetable-admin', 'Thursday'),
+            5 => Module::t('timetable-admin', 'Friday'),
+            6 => Module::t('timetable-admin', 'Saturday'),
+            0 => Module::t('timetable-admin', 'Sunday'),
         ];
     }
 
@@ -72,10 +74,10 @@ class Timetable extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'id'       => 'ID',
-            'start'    => 'Начало',
-            'end'      => 'Окончание',
-            'week_day' => 'День недели',
-            'group_id' => 'Группа',
+            'start'    => Module::t('timetable-admin', 'Start'),
+            'end'      => Module::t('timetable-admin', 'End'),
+            'week_day' => Module::t('timetable-admin', 'Weekday'),
+            'group_id' => Module::t('timetable-admin', 'Group'),
         ];
     }
 
@@ -118,7 +120,6 @@ class Timetable extends \yii\db\ActiveRecord {
             $mysqlFunc = 'ADDDATE';
         }
         $command = Yii::$app->db->createCommand('UPDATE  `paid_employment` '
-//                . 'INNER JOIN `timetable` ON `paid_employment`.`timetable_id` >= `timetable`.`id`'
                 . 'SET `date` = ' . $mysqlFunc . '(`date` , INTERVAL ' . $difference . ' DAY)'
                 . ' WHERE `timetable_id` = ' . $this->oldAttributes['id']
                 . ' AND `date` >= "' . date('Y-m-d') . '"'

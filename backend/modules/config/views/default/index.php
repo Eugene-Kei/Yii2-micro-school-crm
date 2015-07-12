@@ -8,7 +8,7 @@ use backend\modules\config\Config;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 
-$this->title = Config::t('module', 'Configuration');
+$this->title = Config::t('configuration', 'Configuration');
 $this->params['breadcrumbs'][] = $this->title;
 
 $gridId = 'config-grid';

@@ -13,6 +13,7 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\HttpException;
@@ -103,6 +104,7 @@ class DefaultController extends Controller
             . DIRECTORY_SEPARATOR .
             Timetable::$staticTableView . '.php');
 
+//        FileHelper::
         if (@file_put_contents($staticTableFileFullPath, $timeTableContent)) {
             Yii::$app->session->setFlash('success', Module::t('timetable-admin', 'Schedule published on the site.'));
         } else {
