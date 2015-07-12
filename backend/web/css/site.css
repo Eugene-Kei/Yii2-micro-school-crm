@@ -89,3 +89,37 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+.required label:after {
+    content: " *";
+    color: #c55;
+}
+
+td.grid-avatar{
+    padding: 2px !important;
+    text-align:center;
+}
+
+.grid-avatar img{
+    width: 34px;
+    height: 34px;
+}
+.btn.btn-square-200px{
+    width: 200px !important;
+    height: 200px !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.fa-10x {
+    font-size: 10em;
+}
+
+canvas.chartjs{
+    width: 100% !important;
+    /*min-width: 800px;*/
+    height: 300px;
+}
+div.chart-info{
+    width: 16px;
+    height: 16px;
+}
