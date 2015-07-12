@@ -7,8 +7,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model eugenekei\news\models\News */
 
-$this->title = Module::t('module', 'News');
-$this->params['subtitle'] = Module::t('module', 'View News');
+$this->title = Module::t('eugenekei-news', 'News');
+$this->params['subtitle'] = Module::t('eugenekei-news', 'View News');
 $this->params['breadcrumbs'][] = [
     'label' => $this->title,
     'url' => ['index']
@@ -30,23 +30,23 @@ $htmlPurifierOptions = [
                 <?= Html::a('<i class="glyphicon glyphicon-list"></i>', ['index'],
                     [
                         'class' => 'btn btn-default btn-sm',
-                        'title' => Module::t('module', 'List')
+                        'title' => Module::t('eugenekei-news', 'List')
                     ]); ?>
                 <?= Html::a('<i class="glyphicon glyphicon-pencil"></i>', ['update', 'id' => $model->id],
                     [
                         'class' => 'btn btn-success btn-sm',
-                        'title' => Module::t('module', 'Update')
+                        'title' => Module::t('eugenekei-news', 'Update')
                     ]); ?>
                 <?= Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
                     [
                         'class' => 'btn btn-primary btn-sm',
-                        'title' => Module::t('module', 'Create')
+                        'title' => Module::t('eugenekei-news', 'Create')
                     ]); ?>
                 <?= Html::a('<i class="glyphicon glyphicon-trash"></i>', ['delete', 'id' => $model->id],
                     [
                         'class' => 'btn btn-danger btn-sm',
-                        'title' => Module::t('module', 'Delete'),
-                        'data-confirm' => Module::t('module', 'Are you sure to delete this item?'),
+                        'title' => Module::t('eugenekei-news', 'Delete'),
+                        'data-confirm' => Module::t('eugenekei-news', 'Are you sure to delete this item?'),
                         'data-method' => 'post',
                     ]); ?>
             </div>
@@ -71,7 +71,6 @@ $htmlPurifierOptions = [
                             'html',
                             $htmlPurifierOptions
                         ],
-                        'contentOptions' => ['class'=>'superclass']
                     ],
                     [
                         'attribute' => 'status',

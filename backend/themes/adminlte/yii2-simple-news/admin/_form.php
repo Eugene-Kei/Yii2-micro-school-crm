@@ -74,7 +74,7 @@ $imperaviPlugins = [
         </div>
     </div>
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Module::t('module', 'Create') : Module::t('module', 'Update'),
+        <?= Html::submitButton($model->isNewRecord ? Module::t('eugenekei-news', 'Create') : Module::t('eugenekei-news', 'Update'),
             ['class' => $model->isNewRecord ? 'btn btn-primary btn-large' : 'btn btn-success btn-large']) ?>
     </div>
 

@@ -9,8 +9,8 @@ use yii\helpers\Html;
 /* @var $searchModel eugenekei\news\models\NewsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Module::t('module', 'News');
-$this->params['subtitle'] = Module::t('module', 'List News');
+$this->title = Module::t('eugenekei-news', 'News');
+$this->params['subtitle'] = Module::t('eugenekei-news', 'List News');
 $this->params['breadcrumbs'][] = [
     'label' => $this->title,
     'url' => ['index']
@@ -24,9 +24,9 @@ $this->registerJs(
                     "evt.preventDefault();" .
                     "var keys = jQuery('#" . $gridId . "').yiiGridView('getSelectedRows');" .
                     "if (keys == '') {" .
-                        "alert('" . Module::t('module', 'You need to select at least one item.') . "');" .
+                        "alert('" . Module::t('eugenekei-news', 'You need to select at least one item.') . "');" .
                     "} else {" .
-                        "if (confirm('" . Module::t('module', 'Are you sure you want to delete selected items?') . "')) {" .
+                        "if (confirm('" . Module::t('eugenekei-news', 'Are you sure you want to delete selected items?') . "')) {" .
                             "jQuery.ajax({" .
                                 "type: 'POST'," .
                                 "url: jQuery(this).attr('href')," .
@@ -45,13 +45,13 @@ $this->registerJs(
                 <?= Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],
                     [
                         'class' => 'btn btn-primary btn-sm',
-                        'title' => Module::t('module', 'Create')
+                        'title' => Module::t('eugenekei-news', 'Create')
                     ]); ?>
                 <?= Html::a('<i class="glyphicon glyphicon-trash"></i>', ['batch-delete'],
                     [
                         'class' => 'btn btn-danger btn-sm',
                         'id' => 'batch-delete',
-                        'title' => Module::t('module', 'Delete selected')
+                        'title' => Module::t('eugenekei-news', 'Delete selected')
                     ]); ?>
             </div>
         </div>
@@ -84,7 +84,7 @@ $this->registerJs(
                         'class' => 'yii\grid\ActionColumn',
                         'buttonOptions' => ['class' => 'btn btn-default btn-xs'],
                         'headerOptions' => ['style' => 'width:95px;'],
-                        'header' => Module::t('module', 'Actions')
+                        'header' => Module::t('eugenekei-news', 'Actions')
                     ],
                 ],
             ]); ?>

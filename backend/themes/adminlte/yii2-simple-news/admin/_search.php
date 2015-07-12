@@ -22,10 +22,6 @@ use eugenekei\news\Module;
 
     <?= $form->field($model, 'content') ?>
 
-    <?= $form->field($model, 'image_url') ?>
-
-    <?= $form->field($model, 'preview_url') ?>
-
     <?php // echo $form->field($model, 'status') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
@@ -35,8 +31,8 @@ use eugenekei\news\Module;
     <?php // echo $form->field($model, 'user_id') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Module::t('module', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Module::t('module', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(Module::t('eugenekei-news', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Module::t('eugenekei-news', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

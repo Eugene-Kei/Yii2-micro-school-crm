@@ -95,7 +95,6 @@ $controllerPath .= '/'.Yii::$app->controller->id;
                         'url' => ['/statistics/default/index'],
                         'visible' => Yii::$app->user->can('/statistics/*'),
                         'icon' => Statistics::getIcon(),
-                        'active' => $moduleId === 'news',
                     ],
                     [
                         'label' => 'Gii',

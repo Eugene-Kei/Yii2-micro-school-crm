@@ -13,7 +13,7 @@ if (Yii::$app->controller->action->id === 'login') {
     if (class_exists('backend\assets\AppAsset')) {
         backend\assets\AppAsset::register($this);
     } else {
-        app\assets\AppAsset::register($this);
+        frontend\assets\AppAsset::register($this);
     }
 
     dmstr\web\AdminLteAsset::register($this);
@@ -40,7 +40,7 @@ if (Yii::$app->controller->action->id === 'login') {
         ) ?>
 
         <?= $this->render(
-            'left.php',
+            'left-menu.php',
             ['directoryAsset' => $directoryAsset]
         )
         ?>
@@ -49,6 +49,12 @@ if (Yii::$app->controller->action->id === 'login') {
             'content.php',
             ['content' => $content, 'directoryAsset' => $directoryAsset]
         ) ?>
+
+        <?php
+        echo $this->render(
+            'footer'
+        );
+        ?>
 
     </div>
 
