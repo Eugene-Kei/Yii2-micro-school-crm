@@ -14,6 +14,9 @@ return [
     'modules' => [
         'news' => [
             'class' => 'eugenekei\news\Module',
+        ],
+        'cabinet' => [
+            'class' => 'frontend\modules\user\User',
         ]
     ],
     'components' => [
@@ -47,6 +50,24 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    'sourcePath' => null,
+                    'css' => [
+                        YII_ENV_DEV ? '/css/bootstrap.css' : '/css/bootstrap.min.css',
+                    ]
+                ],
+            ],
+        ],
+    ],
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            'site/*',
+            'news/news/*',
+            'debug/default*',
+        ]
     ],
     'params' => $params,
 ];
