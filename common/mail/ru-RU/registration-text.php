@@ -5,10 +5,12 @@
 /* @var $password frontend\models\SignupForm */
 
 ?>
-Hello!
+Здравствуйте!
 
-Thank you for registration on <?= Yii::$app->urlManager->hostInfo ?>!
+Благодарим за регистрацию на <?= Yii::$app->urlManager->hostInfo ?>!
 
-Your login (phone): <?=$phone?>
-Your password: <?=$password?>
+Данные для входа в ваш личный кабинет
+
+Логин (телефон): <?=$phone?>
+Пароль: <?=$password?>
 

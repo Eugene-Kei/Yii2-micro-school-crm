@@ -8,12 +8,18 @@ use yii\helpers\Html;
 
 ?>
 <div class="password-reset">
-    <p>Hello!</p>
-    <p>Thank you for registration on <?= Html::a(Html::encode(Yii::$app->urlManager->hostInfo), Yii::$app->urlManager->hostInfo) ?>!</p>
+    <p>Здравствуйте!</p>
+
+    <p>Благодарим за регистрацию на <?= Html::a(Html::encode(Yii::$app->urlManager->hostInfo),
+            Yii::$app->urlManager->hostInfo) ?>!</p>
 
     <p>
-        Your login (phone): <?=$phone?><br />
-        Your password: <?=$password?><br />
+        Данные для входа в ваш личный кабинет
+    </p>
+
+    <p>
+        Логин (телефон): <?= $phone ?><br/>
+        Пароль: <?= $password ?><br/>
     </p>
 
 </div>

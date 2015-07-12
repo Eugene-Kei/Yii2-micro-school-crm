@@ -5,8 +5,9 @@
 
 $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 'token' => $user->password_reset_token]);
 ?>
-Hello,
+Здравствуйте!
 
-Follow the link below to reset your password:
+Был заказан сброс пароля от вашего аккаунта на сайте <?= Yii::$app->urlManager->hostInfo?>.
+Для продолжения, перейдите по ссылке:
 
 <?= $resetLink ?>
