@@ -49,28 +49,17 @@ class Profile extends \yii\db\ActiveRecord
     /**
      * @return string User full name
      */
-    public function getFullName()
-    {
-        return $this->name . ' ' . $this->surname;
-    }
-
-    /**
-     * @return string User full name
-     */
     public static function getFullNameByUserId($id)
     {
         return self::findOne(['user_id' => $id])->getFullName();
     }
 
     /**
-     * @return array Gender array.
+     * @return string User full name
      */
-    public static function getGenderArray()
+    public function getFullName()
     {
-        return [
-            self::GENDER_MALE =>  Yii::t('app', 'Male'),
-            self::GENDER_FEMALE =>  Yii::t('app', 'Female')
-        ];
+        return $this->name . ' ' . $this->surname;
     }
 
     /**
@@ -102,11 +91,34 @@ class Profile extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return array Gender array.
+     */
+    public static function getGenderArray()
+    {
+        return [
+            self::GENDER_MALE => Yii::t('app', 'Male'),
+            self::GENDER_FEMALE => Yii::t('app', 'Female')
+        ];
+    }
+
+    /**
      * @inheritdoc
      */
-    public function scenarios() {
+    public function scenarios()
+    {
         return [
             'frontend-update-own' => ['birthday', 'gender', 'name', 'surname', 'middle_name', 'avatar_url'],
+            'default' => [
+                'birthday',
+                'gender',
+                'name',
+                'surname',
+                'middle_name',
+                'user_affiliate_id',
+                'balance',
+                'bonus_balance',
+                'avatar_url'
+            ],
         ];
     }
 
@@ -180,6 +192,15 @@ class Profile extends \yii\db\ActiveRecord
     public function getProfileAffiliate()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'user_affiliate_id']);
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        // Updates a timestamp attribute to the current timestamp
+        if (!$insert) {
+            User::findIdentity($this->user_id)->touch('updated_at');
+        }
     }
 
 }
