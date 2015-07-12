@@ -1,2 +1,4 @@
 /index.php
 /index-test.php
+/images/*
+!/images/avatars/default_avatar.gif
