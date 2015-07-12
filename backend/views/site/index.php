@@ -7,7 +7,6 @@ use backend\modules\employment\Employment;
 use backend\modules\pay\Pay;
 use backend\modules\user\Module as User;
 use yii\helpers\Url;
-use Yii;
 
 
 /* @var $this yii\web\View */
