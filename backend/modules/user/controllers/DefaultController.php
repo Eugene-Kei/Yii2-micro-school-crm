@@ -135,16 +135,9 @@ class DefaultController extends Controller
 
         if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
 
-            if (!$user->validate()) {
-                $errorValidation = 1;
-            }
-            if (!$profile->validate()) {
-                $errorValidation = 1;
-            }
-
-            if (!$errorValidation) {
+            if ($user->validate() && $profile->validate()) {
                 $user->populateRelation('profile', $profile);
-                if(!$user->save(false) || !$profile->save(false)){
+                if(!$this->createUser($user, $profile, false)){
                     Yii::$app->session->setFlash('danger', Yii::t('app', 'Could not create user'));
                 } else {
                     Yii::$app->session->setFlash('success', Yii::t('app', 'User created successfully'));
@@ -257,5 +250,28 @@ class DefaultController extends Controller
         } else {
             throw new HttpException(404);
         }
+    }
+
+    /**
+     * Create new user with transaction
+     * @param User $user
+     * @param Profile $profile
+     * @param bool $validate
+     * @return bool
+     */
+    public function createUser(User $user, Profile $profile, $validate = true){
+        $transaction = Yii::$app->db->beginTransaction();
+        if(!$user->save($validate)){
+            $transaction->rollback();
+            return false;
+        }
+
+        $profile->user_id = $user->id;
+        if(!$profile->save($validate)){
+            $transaction->rollback();
+            return false;
+        }
+        $transaction->commit();
+        return true;
     }
 }
