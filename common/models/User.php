@@ -23,9 +23,14 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
+    const STATUS_BANNED = 0;
     const STATUS_NEW = 1;
     const STATUS_ACTIVE = 10;
+
+    /**
+     * @var string Phone regular pattern
+     */
+    public static $patternPhone = '/^(\+?[0-9]){5,30}$/';
 
     /**
      * @inheritdoc
@@ -38,12 +43,20 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return array
      */
-    public static function getStatusArray()
+    public function getStatusArray()
+    {
+        return self::getStatusArrayStatic();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getStatusArrayStatic()
     {
         return [
-            self::STATUS_DELETED => 'DELETED',
-            self::STATUS_NEW => 'NEW',
-            self::STATUS_ACTIVE => 'ACTIVE'
+            self::STATUS_BANNED => Yii::t('app', 'Banned'),
+            self::STATUS_NEW => Yii::t('app', 'New'),
+            self::STATUS_ACTIVE => Yii::t('app', 'Active')
         ];
     }
 
@@ -63,8 +76,28 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            ['phone', 'required'],
+            ['email', 'email'],
+            ['phone', 'match', 'pattern' => self::$patternPhone],
+            [['phone', 'email'], 'unique', 'targetClass' => '\common\models\User'],
+            ['status', 'in', 'range' => array_keys(self::getStatusArrayStatic())],
             ['status', 'default', 'value' => self::STATUS_NEW],
-            ['status', 'in', 'range' => array_keys(self::getStatusArray())],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'phone' => Yii::t('app', 'Phone'),
+            'email' => Yii::t('app', 'Email'),
+            'status' => Yii::t('app', 'Status'),
+            'created_at' => Yii::t('app', 'Created at'),
+            'updated_at' => Yii::t('app', 'Updated at'),
+            'password' => Yii::t('app', 'Password'),
         ];
     }
 
