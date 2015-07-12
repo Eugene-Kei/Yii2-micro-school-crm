@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use vova07\fileapi\behaviors\UploadBehavior;
 use Yii;
 
 /**
@@ -22,19 +23,20 @@ use Yii;
  */
 class Profile extends \yii\db\ActiveRecord
 {
-    /** Inactive status */
+    /** Gender */
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
+
+    /** Avatar settings */
+    const AVATAR_URL = '/images/avatars';
+    const AVATAR_UPLOAD_PATH = '@frontend/web/images/avatars';
+    const AVATAR_UPLOAD_TEMP_PATH = '@frontend/web/images/avatars/tmp';
+    const NO_AVATAR_FILENAME = 'default_avatar.gif';
 
     /**
      * @var string Name regular pattern
      */
     public static $patternName = '/^([a-zа-яё])+(-[a-zа-яё]+)?+$/iu';
-
-    /**
-     * @var string Phone regular pattern
-     */
-    public $patternPhone = '/^(\+?[0-9]){5,30}$/';
 
     /**
      * @inheritdoc
@@ -53,13 +55,21 @@ class Profile extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return string User full name
+     */
+    public static function getFullNameByUserId($id)
+    {
+        return self::findOne(['user_id' => $id])->getFullName();
+    }
+
+    /**
      * @return array Gender array.
      */
     public static function getGenderArray()
     {
         return [
-            self::GENDER_MALE => 'GENDER_MALE',
-            self::GENDER_FEMALE => 'GENDER_FEMALE'
+            self::GENDER_MALE =>  Yii::t('app', 'Male'),
+            self::GENDER_FEMALE =>  Yii::t('app', 'Female')
         ];
     }
 
@@ -69,23 +79,33 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['birthday'], 'date'],
+            [['birthday'], 'date', 'format' => 'php:Y-m-d'],
             ['user_affiliate_id', 'integer', 'min' => 1],
             [
                 'user_affiliate_id',
                 'compare',
                 'compareAttribute' => 'user_id',
                 'operator' => '!==',
-                'message' => 'Нельзя быть аффилиатом самому себе'
+                'message' => Yii::t('app', 'Can not be yourself affiliate')
             ],
             ['user_affiliate_id', 'exist', 'targetAttribute' => 'id', 'targetClass' => User::className()],
             ['gender', 'in', 'range' => array_keys(static::getGenderArray())],
             [['balance', 'bonus_balance'], 'number'],
+            [['balance', 'bonus_balance'], 'default', 'value' => '0.00'],
             ['name', 'required'],
             [['surname', 'name', 'middle_name'], 'trim'],
             [['surname', 'name', 'middle_name'], 'string', 'max' => 50],
-            [['surname', 'name', 'middle_name'], 'match', 'pattern' => static::$patternName],
+            [['surname', 'name', 'middle_name'], 'match', 'pattern' => self::$patternName],
             [['avatar_url'], 'string', 'max' => 64]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios() {
+        return [
+            'frontend-update-own' => ['birthday', 'gender', 'name', 'surname', 'middle_name', 'avatar_url'],
         ];
     }
 
@@ -95,17 +115,46 @@ class Profile extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'User ID',
-            'surname' => 'Surname',
-            'name' => 'Name',
-            'middle_name' => 'Middle Name',
-            'birthday' => 'Birthday',
-            'gender' => 'Gender',
-            'avatar_url' => 'Avatar Url',
-            'balance' => 'Balance',
-            'bonus_balance' => 'Bonus Balance',
-            'user_affiliate_id' => 'User Affiliate ID',
+            'user_id' => 'ID',
+            'surname' => Yii::t('app', 'Surname'),
+            'name' => Yii::t('app', 'Name'),
+            'middle_name' => Yii::t('app', 'Middle Name'),
+            'fullName' => Yii::t('app', 'Full name'),
+            'birthday' => Yii::t('app', 'Birthday'),
+            'gender' => Yii::t('app', 'Gender'),
+            'avatar_url' => Yii::t('app', 'Avatar'),
+            'balance' => Yii::t('app', 'Balance'),
+            'bonus_balance' => Yii::t('app', 'Bonus balance'),
+            'user_affiliate_id' => Yii::t('app', 'Affiliate'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'uploadBehavior' => [
+                'class' => UploadBehavior::className(),
+                'attributes' => [
+                    'avatar_url' => [
+                        'path' => self::AVATAR_UPLOAD_PATH,
+                        'tempPath' => self::AVATAR_UPLOAD_TEMP_PATH,
+                        'url' => self::AVATAR_URL
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    public function getFullAvatarUrl()
+    {
+        if (!empty($this->avatar_url)) {
+            return self::AVATAR_URL . DIRECTORY_SEPARATOR . $this->avatar_url;
+        } else {
+            return self::AVATAR_URL . DIRECTORY_SEPARATOR . self::NO_AVATAR_FILENAME;
+        }
     }
 
     /**
