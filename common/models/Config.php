@@ -45,12 +45,12 @@ class Config extends \yii\db\ActiveRecord {
      */
     public function attributeLabels() {
         return [
-            'id'      => Module::t('module', 'ID'),
-            'param'   => Module::t('module', 'Param'),
-            'value'   => Module::t('module', 'Value'),
-            'default' => Module::t('module', 'Default value'),
-            'label'   => Module::t('module', 'Parameter name'),
-            'type'    => Module::t('module', 'Type'),
+            'id'      => Module::t('configuration', 'ID'),
+            'param'   => Module::t('configuration', 'Param'),
+            'value'   => Module::t('configuration', 'Value'),
+            'default' => Module::t('configuration', 'Default value'),
+            'label'   => Module::t('configuration', 'Parameter name'),
+            'type'    => Module::t('configuration', 'Type'),
         ];
     }
 
