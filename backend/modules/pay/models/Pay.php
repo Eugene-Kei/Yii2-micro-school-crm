@@ -72,7 +72,7 @@ class Pay extends \yii\db\ActiveRecord {
      * Активна ли партнерка
      * @return bool 
      */
-    static function isActiveAffiliateProgram() {
+    public static function isActiveAffiliateProgram() {
         return (bool) Yii::$app->config->get('AFFILIATE.IS_ACTIVE');
     }
 
