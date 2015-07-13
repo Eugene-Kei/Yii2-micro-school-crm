@@ -28,7 +28,12 @@ class m150202_073330_create_pay_table extends Migration {
         $this->addForeignKey('FK_pay_user_id', '{{%pay}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
         
         // insert config data
-        $this->execute($this->getConfigSql());
+        $this->batchInsert('{{%config}}', ['param', 'value', 'default', 'label', 'type', 'data'], [
+           ['AFFILIATE.IS_ACTIVE', 0, 0, 'Партнерская программа', 'INPUT_SWITCH', serialize([0=>'OFF', 1=>'ON'])],
+           ['AFFILIATE.PERCENT', 10, 10, 'Партнерская комиссия первого уровня (%)', 'INPUT_TEXT', ''],
+           ['AFFILIATE.PERCENT_SECOND_LEVEL', 0, 0, 'Партнерская комиссия второго уровня (%)', 'INPUT_TEXT', ''],
+           ['AFFILIATE.MIN_SUM', 0, 0, 'Минимальная сумма платежа, для партнерских отчислений', 'INPUT_TEXT', ''],
+        ]);
     }
 
     public function safeDown() {
@@ -41,19 +46,6 @@ class m150202_073330_create_pay_table extends Migration {
             'AFFILIATE.PERCENT_SECOND_LEVEL',
             'AFFILIATE.MIN_SUM',
         ]]);
-    }
-    
-    /**
-     * @return string SQL to insert first profile
-     */
-    private function getConfigSql()
-    {
-        return "INSERT INTO {{%config}} (`param`, `value`, `default`, `label`, `type`, `data`) "
-        . "VALUES "
-                . "('AFFILIATE.IS_ACTIVE', 0, 0, 'Партнерская программа', 'INPUT_SWITCH', '".serialize([0=>'OFF', 1=>'ON'])."'),"
-                . "('AFFILIATE.PERCENT', 10, 10, 'Партнерская комиссия первого уровня (%)', 'INPUT_TEXT', ''),"
-                . "('AFFILIATE.PERCENT_SECOND_LEVEL', 0, 0, 'Партнерская комиссия второго уровня (%)', 'INPUT_TEXT', ''),"
-                . "('AFFILIATE.MIN_SUM', 0, 0, 'Минимальная сумма платежа, для партнерских отчислений', 'INPUT_TEXT', '')";
     }
 
 }

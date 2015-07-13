@@ -43,8 +43,25 @@ class m130524_201442_init extends Migration
         $this->addForeignKey('FK_profile_user', '{{%profile}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
 
         // Add first user
-        $this->execute($this->getFirstUserSql());
-        $this->execute($this->getFirstProfileSql());
+        $time = time();
+        $password_hash = Yii::$app->security->generatePasswordHash('123456');
+        $auth_key = Yii::$app->security->generateRandomString();
+
+        $this->insert('{{%user}}', [
+            'id'=>1,
+            'phone' => 123456,
+            'email' => 'super@admin.com',
+            'password_hash' => $password_hash,
+            'auth_key' => $auth_key,
+            'created_at' => $time,
+            'updated_at' => $time
+        ]);
+
+        $this->insert('{{%profile}}', [
+            'user_id'=>1,
+            'name' => 'Superadmin',
+            'surname' => 'Site'
+        ]);
     }
 
     public function down()
@@ -53,23 +70,4 @@ class m130524_201442_init extends Migration
         $this->dropTable('{{%user}}');
     }
 
-    public function getFirstUserSql()
-    {
-        $time = time();
-        $password_hash = Yii::$app->security->generatePasswordHash('123456');
-        $auth_key = Yii::$app->security->generateRandomString();
-        $sql = " INSERT INTO {{%user}} "
-            . "(`id`, `phone`, `email`, `password_hash`, `auth_key`, `created_at`, `updated_at`) "
-            . "VALUES (1, 123456, 'super@admin.com', '$password_hash', '$auth_key', $time, $time);";
-
-        return $sql;
-    }
-
-    public function getFirstProfileSql()
-    {
-        $sql = "INSERT INTO {{%profile}} (`user_id`, `name`, `surname`, `avatar_url`) "
-            . "VALUES (1, 'Superadmin', 'Site', '')";
-
-        return $sql;
-    }
 }

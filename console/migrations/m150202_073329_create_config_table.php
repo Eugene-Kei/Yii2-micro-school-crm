@@ -28,28 +28,23 @@ class m150202_073329_create_config_table extends Migration
         $this->createIndex('ux_param', '{{%config}}', 'param', true);
         
         // insert config data
-        $this->execute($this->getConfigSql());
+        $this->batchInsert('{{%config}}', ['param', 'value', 'default', 'label', 'type', 'data'], [
+            ['CONTACT.ORGANIZATION_NAME', 'Micro School CRM', 'Micro School CRM', 'Название организации', 'INPUT_TEXT', ''],
+            ['CONTACT.PHONE_NUMBER', '+7 (999) 123-45-67', '+7 (999) 123-45-67', 'Контактный номер телефона (отображен на сайте)', 'INPUT_TEXT', ''],
+            ['CONTACT.EMAIL', 'someone@somewhere.ru', 'someone@somewhere.ru', 'Контактный email', 'INPUT_TEXT', ''],
+            [
+                'CONTACT.ADDRESS',
+                '',
+                'г. Иркутск,<br />ул. Ленина 1,<br />Oфис 2',
+                'Адрес организации',
+                'INPUT_TEXTAREA',
+                ''
+            ],
+        ] );
     }
     
     public function safeDown()
     {
         $this->dropTable('{{%config}}');
-    }
-    
-     /**
-     * @return string SQL to insert first config
-     */
-    private function getConfigSql()
-    {
-        return "INSERT INTO {{%config}} (`param`, `value`, `default`, `label`, `type`, `data`) "
-        . "VALUES "
-                . "('CONTACT.ORGANIZATION_NAME', 'Мой любимый клуб', 'Мой любимый клуб', 'Название организации', 'INPUT_TEXT', ''),"
-                . "('CONTACT.PHONE_NUMBER', '+7 (999) 123-45-67', '+7 (999) 123-45-67', 'Контактный номер телефона (отображен на сайте)', 'INPUT_TEXT', ''),"
-                . "('CONTACT.EMAIL', 'someone@somewhere.ru', 'someone@somewhere.ru', 'Контактный email', 'INPUT_TEXT', ''),"
-                . "('CONTACT.ADDRESS', '<strong>Мой любимый клуб</strong><br />"
-                    . "г. Иркутск<br />ул. Ленина 1<br />Второй этаж, офис 2', "
-                    . "'<strong>Мой любимый клуб</strong><br />"
-                    . "г. Иркутск<br />ул. Ленина 1<br />Второй этаж, офис 2', "
-                    . "'Адрес организации', 'INPUT_TEXTAREA', '');";
     }
 }
