@@ -97,13 +97,6 @@ $controllerPath .= '/'.Yii::$app->controller->id;
                         'icon' => Statistics::getIcon(),
                     ],
                     [
-                        'label' => 'Gii',
-                        'url' => ['/gii'],
-                        'visible' => Yii::$app->user->can('/gii/*'),
-                        'icon' => 'fa-file-code-o',
-                        'template' => '<a href="{url}" target="_blank">{icon} {label} {arrow}</a>'
-                    ],
-                    [
                         'label' => Yii::t('rbac-admin', 'Assignments'),
                         'url' => ['/rbac'],
                         'icon' => 'fa-legal',
