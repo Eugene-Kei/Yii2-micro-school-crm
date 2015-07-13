@@ -52,7 +52,7 @@ return [
         'statistics' => [
             'class' => 'backend\modules\statistics\Statistics',
         ],
-        'gridview' =>  [
+        'gridview' => [
             'class' => '\kartik\grid\Module'
         ]
     ],
@@ -93,7 +93,7 @@ return [
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            'rbac/*', // add or remove allowed actions to this list
+            //'rbac/*', // add or remove allowed actions to this list
             'site/login',
             'site/logout',
             'debug/default*',
