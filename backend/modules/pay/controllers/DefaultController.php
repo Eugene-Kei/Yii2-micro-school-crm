@@ -135,6 +135,7 @@ class DefaultController extends Controller
 
             $model = new Pay();
             $model->setScenario('pay-create');
+            $model->maxBonusBalance = $profile->bonus_balance;
             $tickets = SeasonTicket::getTicketArray();
 
             //ajax validation

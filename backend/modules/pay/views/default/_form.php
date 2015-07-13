@@ -17,9 +17,7 @@ use backend\modules\pay\Pay;
     <?php
     $form = ActiveForm::begin([
         'id' => 'pay-form',
-        'enableAjaxValidation' => true,
-        'validateOnBlur' => true,
-        'enableClientValidation' => false,
+        'enableClientValidation' => true,
     ]);
     ?>
 
