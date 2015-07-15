@@ -247,8 +247,11 @@ composer create-project --prefer-dist eugene-kei/yii2-micro-school-crm yii2-micr
    И добавьте в него следующие строки:
 
    ```
+   
    127.0.0.1   frontend.dev
+   
    127.0.0.1   backend.dev
+   
    ```
 
 
