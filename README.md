@@ -98,11 +98,14 @@ composer create-project --prefer-dist eugene-kei/yii2-micro-school-crm yii2-micr
 
 После того, как приложение установлено, нужно проделать следующие действия, для его инициализации.
 
+
+
 1.Выполните команду `init` и выберите `dev` для разработки приложения.
 
    ```
    php /path/to/yii-application/init
    ```
+
 
    Или же, для продакшена, выполните `init` в неинтерактивном режиме.
 
@@ -110,7 +113,11 @@ composer create-project --prefer-dist eugene-kei/yii2-micro-school-crm yii2-micr
    php /path/to/yii-application/init --env=Production --overwrite=All
    ```
 
+
+
 2.Создайте базу данных и настройте соответствующие параметры `components['db']` в файле `common/config/main-local.php`.
+
+
 
 3.Для применения миграций, выполните следующие команды в консоли:
 
@@ -118,10 +125,17 @@ composer create-project --prefer-dist eugene-kei/yii2-micro-school-crm yii2-micr
  
  `yii migrate --migrationPath=@eugenekei/news/migrations` - для миграции модуля *eugene-kei/yii2-simple-news*.
 
+
+
 4.Настройте document roots вашего веб сервера:
 
+
    - Для frontend `/path/to/yii2-micro-school-crm/frontend/web/` и использования URL `http://frontend.dev/`
+   
+   
    - Для backend `/path/to/yii2-micro-school-crm/backend/web/` и использования URL `http://backend.dev/`
+   
+   
    
    Для Apache это может выглядеть следующим образом:
 
@@ -160,6 +174,8 @@ composer create-project --prefer-dist eugene-kei/yii2-micro-school-crm yii2-micr
                # ...other settings...
            </Directory>
        </VirtualHost>
+
+
 
    Для nginx:
 
@@ -239,6 +255,9 @@ composer create-project --prefer-dist eugene-kei/yii2-micro-school-crm yii2-micr
            }
        }
 
+
+
+
 5.Откройте файл hosts
 
    - Windows: `c:\Windows\System32\Drivers\etc\hosts`
@@ -246,21 +265,18 @@ composer create-project --prefer-dist eugene-kei/yii2-micro-school-crm yii2-micr
 
    И добавьте в него следующие строки:
 
-   ```
-   
-   127.0.0.1   frontend.dev
-   
-   127.0.0.1   backend.dev
-   
-   ```
+       
+       127.0.0.1   frontend.dev
+       
+       127.0.0.1   backend.dev
 
 
 
 После установки приложения, в нем уже зарегистрирован 1 пользователь с правами суперадмина. 
 
-Логин (телефон) - *123456*
+Логин (телефон) - **123456**
 
-Пароль - *123456*
+Пароль - **123456**
 
 
 Для того, чтбы сменить пароль, нужно заказать сброс пароля по адресу `http://frontend.dev/site/request-password-reset/`, 
