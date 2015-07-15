@@ -18,7 +18,7 @@ $this->title = Yii::t('app', 'Admin panel');
     <?php
     if(Yii::$app->user->can('/user/*')):
         ?>
-        <div class="col-lg-3 col-sm-4 col-xs-6">
+        <div class="col-lg-3 col-md-4 col-xs-6">
             <a class="btn btn-default btn-square-200px"
                href="<?php echo Url::toRoute('/user/default/index'); ?>">
                 <i class="fa fa-user fa-10x text-info">
@@ -31,7 +31,7 @@ $this->title = Yii::t('app', 'Admin panel');
     endif;
     if(Yii::$app->user->can('/pay/*')):
         ?>
-        <div class="col-lg-3 col-sm-4 col-xs-6">
+        <div class="col-lg-3 col-md-4 col-xs-6">
             <a class="btn btn-default btn-square-200px"
                href="<?php echo Url::toRoute('/pay/default/index'); ?>">
                 <i class="fa fa-money fa-10x text-info">
@@ -44,7 +44,7 @@ $this->title = Yii::t('app', 'Admin panel');
     endif;
     if(Yii::$app->user->can('/employment/*')):
         ?>
-        <div class="col-lg-3 col-sm-4 col-xs-6">
+        <div class="col-lg-3 col-md-4 col-xs-6">
             <a class="btn btn-default btn-square-200px"
                href="<?php echo Url::toRoute('/employment/default/index'); ?>">
                 <i class="fa fa-clock-o fa-10x text-info">
@@ -57,7 +57,7 @@ $this->title = Yii::t('app', 'Admin panel');
     endif;
     if(Yii::$app->user->can('/user/*')):
         ?>
-        <div class="col-lg-3 col-sm-4 col-xs-6">
+        <div class="col-lg-3 col-md-4 col-xs-6">
             <a class="btn btn-default btn-square-200px"
                href="<?php echo Url::toRoute('/user/default/debtor'); ?>">
                 <i class="fa fa-money fa-10x text-danger">
@@ -70,7 +70,7 @@ $this->title = Yii::t('app', 'Admin panel');
     endif;
     if(Yii::$app->user->can('/timetable/*')):
         ?>
-        <div class="col-lg-3 col-sm-4 col-xs-6">
+        <div class="col-lg-3 col-md-4 col-xs-6">
             <a class="btn btn-default btn-square-200px"
                href="<?php echo Url::toRoute('/timetable/default/view'); ?>">
                 <i class="fa fa-calendar fa-10x text-info">
@@ -83,7 +83,7 @@ $this->title = Yii::t('app', 'Admin panel');
     endif;
     if(Yii::$app->user->can('/timetable/*')):
         ?>
-        <div class="col-lg-3 col-sm-4 col-xs-6">
+        <div class="col-lg-3 col-md-4 col-xs-6">
             <a class="btn btn-default btn-square-200px"
                href="<?php echo Url::toRoute('/timetable/default/cancel-lessons'); ?>">
                 <i class="fa fa-close fa-10x text-danger">
@@ -96,7 +96,7 @@ $this->title = Yii::t('app', 'Admin panel');
     endif;
     if(Yii::$app->user->can('/statistics/*')):
         ?>
-        <div class="col-lg-3 col-sm-4 col-xs-6 center-block">
+        <div class="col-lg-3 col-md-4 col-xs-6 center-block">
             <a class="btn btn-default btn-square-200px"
                href="<?php echo Url::toRoute('/statistics/default/index'); ?>">
                 <i class="fa fa-bar-chart fa-10x text-info">
