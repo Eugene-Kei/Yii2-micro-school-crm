@@ -13,7 +13,7 @@ class Config extends \yii\base\Module
      * @return string
      */
     public static function getIcon() {
-        return 'fa-wrench';
+        return 'fa-cogs';
     }
 
     public function init()
