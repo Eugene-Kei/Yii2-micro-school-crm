@@ -57,7 +57,7 @@ return [
     'New password was saved.' => 'Новый пароль успешно сохранен.',
     'Sorry, we are unable to reset password for email provided.' => 'Извините, что-то пошло не так, нам не удалось отправить информацию для сброса пароля, на ваш email.',
     '{Name}, password to access your account on the site {serverName}' => '{Name}, пароль для доступа в ваш аккаунт на сайте {serverName}',
-    'Request password reset' => 'Запросить сброс пааролья',
+    'Request password reset' => 'Запросить сброс пароля',
     'Please fill out your email. A link to reset password will be sent there.' => 'Пожалуйста, введите email указанный при регистрации. Ссылка для восстановления пароля будет отправлена на него.',
     'Check your email for further instructions.' => 'Проверьте свой email для дальнейших инструкций.',
     'Your password has been sent to: {email}' => 'Ваш пароль был отправлен на email: {email}',
