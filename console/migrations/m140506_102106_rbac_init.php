@@ -100,6 +100,7 @@ class m140506_102106_rbac_init extends \yii\db\Migration
             ['admin', '/pay/*'],
             ['admin', '/group/*'],
             ['admin', '/timetable/*'],
+            ['admin', '/site/*'],
             ['user', '/cabinet/*'],
             ['director', 'admin'],
             ['superadmin', 'director'],
