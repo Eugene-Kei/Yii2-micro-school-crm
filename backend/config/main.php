@@ -47,6 +47,7 @@ return [
         'news' => [
             'class' => 'eugenekei\news\Module',
             'controllerNamespace' => 'eugenekei\news\controllers\backend',
+            'authorNameField' => 'fullName',
             'viewPath' => '@app/themes/adminlte/yii2-simple-news'
         ],
         'statistics' => [
@@ -93,7 +94,6 @@ return [
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            //'rbac/*', // add or remove allowed actions to this list
             'site/login',
             'site/logout',
             'debug/default*',
