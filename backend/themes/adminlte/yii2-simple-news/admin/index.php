@@ -4,6 +4,7 @@ use eugenekei\news\Module;
 use yii\grid\CheckboxColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel eugenekei\news\models\NewsSearch */
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = [
 $this->params['breadcrumbs'][] = $this->params['subtitle'];
 
 $gridId = 'news-grid';
+$statusArray = $searchModel->getStatusArray();
 
 $this->registerJs(
                 "jQuery(document).on('click', '#batch-delete', function (evt) {" .
@@ -69,9 +71,31 @@ $this->registerJs(
                     'title',
                     [
                         'attribute' => 'status',
-                        'value' => function($model){return $model->getStatusArray()[$model->status];}
+                        'value' => function($model){return $model->getStatusArray()[$model->status];},
+                        'filter' => Html::activeDropDownList(
+                            $searchModel, 'status', $statusArray, ['class' => 'form-control', 'prompt' => '']
+                        )
                     ],
-                     'created_at:datetime',
+                    [
+                        'attribute' => 'created_at',
+                        'format' => 'datetime',
+                        'filter' => DateRangePicker::widget(
+                            [
+                                'model' => $searchModel,
+                                'attribute' => 'created_at',
+                                'convertFormat' => true,
+                                'presetDropdown' => true,
+                                'options' => [
+                                    'class' => 'form-control',
+                                ],
+                                'pluginOptions' => [
+                                    'format' => 'Y-m-d H:i:s',
+                                    'dateLimit' => ['months' => 6],
+                                    'opens' => 'left'
+                                ],
+                            ]
+                        )
+                    ],
                     [
                         'attribute' => 'user_id',
                         'value' => function($model){
