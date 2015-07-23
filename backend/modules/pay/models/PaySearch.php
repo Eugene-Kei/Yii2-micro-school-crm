@@ -109,7 +109,8 @@ class PaySearch extends Pay {
             return [];
         }
 
-        $datesArray = array_splice(explode($separator, $this->$fieldName), 0, 2);
+        $timeArray = explode($separator, $this->$fieldName);
+        $datesArray = array_splice($timeArray, 0, 2);
         if(count($datesArray) < 2){
             return [];
         }
