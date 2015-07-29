@@ -11,12 +11,12 @@ $this->title = 'Yii2 Micro School CRM';
         <p>Приложение написано на PHP фреймворке Yii2.</p>
         <p>&nbsp;</p>
         <div class="row">
-            <col-xs-6>
+            <div class="col-xs-6">
                 <a class="btn btn-lg btn-success" href="https://bitbucket.org/Eugene-Kei/yii2-micro-school-crm/">Yii2 Micro School CRM на Bitbucket</a>
-            </col-xs-6>
-            <col-xs-6>
+            </div>
+            <div class="col-xs-6">
                 <a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Официальный сайт Yii Framework</a>
-            </col-xs-6>
+            </div>
         </div>
     </div>
     <div class="body-content">
