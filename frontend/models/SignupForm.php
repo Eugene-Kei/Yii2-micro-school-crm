@@ -77,7 +77,7 @@ class SignupForm extends Model
                 $profile->name = $this->name;
 
                 //если в куках есть id аффилиата, сохраняем его
-                $affiliateId = (int)Yii::$app->request->cookies['affiliate'];
+                $affiliateId = (int) Yii::$app->request->cookies['affiliate'];
                 if ($affiliateId > 0 && User::findIdentity($affiliateId)) {
                     $profile->user_affiliate_id = $affiliateId;
                 }
@@ -96,10 +96,10 @@ class SignupForm extends Model
         $layouts = ['html' => 'registration-html', 'text' => 'registration-text'];
         $params = ['phone' => $this->phone, 'password' => $this->password];
 
-        return \Yii::$app->mailer->compose($layouts, $params)
-            ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+        return Yii::$app->mailer->compose($layouts, $params)
+            ->setFrom([\Yii::$app->params['supportEmail'] => Yii::$app->config->get('CONTACT.ORGANIZATION_NAME') . ' robot'])
             ->setTo($this->email)
-            ->setSubject(\Yii::$app->name . ' :: ' . Yii::t('app', 'Your Account Info'))
+            ->setSubject(Yii::$app->config->get('CONTACT.ORGANIZATION_NAME') . ' :: ' . Yii::t('app', 'Your Account Info'))
             ->send();
     }
 }
