@@ -162,6 +162,10 @@ class DefaultController extends Controller
 
         $model = Pay::find()->where('id = :id AND user_id=' . Yii::$app->user->id, [':id' => $id])->one();
 
+        if(!$model){
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
         return $this->render('view_pay', [
             'model' => $model,
             'paidEmployment' => $paidEmployment,
