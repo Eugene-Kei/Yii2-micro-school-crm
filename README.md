@@ -10,8 +10,8 @@ Yii2 Micro School CRM
 
 
 Демонстрация приложения: 
-frontend - [junkie25.myihor.ru](http://junkie25.myihor.ru).
-backend - [admin.junkie25.myihor.ru](http://admin.junkie25.myihor.ru).
+frontend - [http://crm.irkutsk-dance.ru](http://crm.irkutsk-dance.ru).
+backend - [http://admin.crm.irkutsk-dance.ru](http://admin.crm.irkutsk-dance.ru).
 
 
 
