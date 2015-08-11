@@ -130,16 +130,22 @@ $this->registerJs(
                         'headerOptions' => ['style' => 'width:155px;'],
                         'header' => Module::t('user-admin', 'Actions'),
                         'template' => '{pay} {history} {view} {update} {delete}',
-                        'buttons'  => [
+                        'buttons' => [
                             'pay' => function ($url, $model) {
-                                $customurl = Yii::$app->getUrlManager()->createUrl(['/pay/default/create/', 'user_id' => $model->id]);
-                                return \yii\helpers\Html::a(
-                                    '<span class="fa fa-money"></span>', $customurl, [
-                                        'title'     => Module::t('user-admin', 'Pay'),
-                                        'data-pjax' => '0',
-                                        'class' => 'btn btn-default btn-xs'
-                                    ]
-                                );
+                                $customurl = Yii::$app->getUrlManager()->createUrl([
+                                    '/pay/default/create/',
+                                    'user_id' => $model->id
+                                ]);
+
+                                return Yii::$app->user->can('/pay/*') ?
+                                    \yii\helpers\Html::a(
+                                        '<span class="fa fa-money"></span>', $customurl, [
+                                            'title' => Module::t('user-admin', 'Pay'),
+                                            'data-pjax' => '0',
+                                            'class' => 'btn btn-default btn-xs'
+                                        ]
+                                    )
+                                    : '';
                             },
                             'history' => function ($url, $model) {
                                 $customurl = Yii::$app->getUrlManager()->createUrl([
@@ -147,13 +153,15 @@ $this->registerJs(
                                     'PaySearch' => ['user_id' => $model->id]
                                 ]);
 
-                                return \yii\helpers\Html::a(
-                                    '<span class="fa fa-history"></span>', $customurl, [
-                                        'title' => Module::t('user-admin', 'Payment history'),
-                                        'data-pjax' => '0',
-                                        'class' => 'btn btn-default btn-xs'
-                                    ]
-                                );
+                                return Yii::$app->user->can('/pay/*') ?
+                                    \yii\helpers\Html::a(
+                                        '<span class="fa fa-history"></span>', $customurl, [
+                                            'title' => Module::t('user-admin', 'Payment history'),
+                                            'data-pjax' => '0',
+                                            'class' => 'btn btn-default btn-xs'
+                                        ]
+                                    )
+                                    : '';
                             },
                         ],
                     ],
