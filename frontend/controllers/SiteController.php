@@ -226,7 +226,7 @@ class SiteController extends Controller
                 Yii::$app->response->cookies->add(new Cookie([
                     'name' => 'affiliate',
                     'value' => $refId,
-                    'expire' => 60*60*24*365,
+                    'expire' => time()+60*60*24*365,
                 ]));
             }
             return true;
