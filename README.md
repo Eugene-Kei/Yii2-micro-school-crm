@@ -13,6 +13,21 @@ Yii2 Micro School CRM
 frontend - [http://crm.irkutsk-dance.ru](http://crm.irkutsk-dance.ru).
 backend - [http://admin.crm.irkutsk-dance.ru](http://admin.crm.irkutsk-dance.ru).
 
+Доступ к демо приложению:
+
+Директор: 
+Логин: `111111`
+Пароль: `111111`
+
+Администратор: 
+Логин: `222222`
+Пароль: `222222`
+
+Пользователь (Не имеет доступа в админ панель):
+Логин: `333333`
+Пароль: `333333`
+
+
 
 
 
